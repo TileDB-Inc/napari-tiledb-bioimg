@@ -1,10 +1,10 @@
 name: napari-tiledb-bioimg
-display_name: TileDB BioImaging Napari Plugin
+display_name: napari TileDB bioimaging
 contributions:
   commands:
     - id: napari-tiledb-bioimg.get_reader
       python_name: napari_tiledb_bioimg._reader:napari_get_reader
-      title: Open data with TileDB BioImaging Napari Plugin
+      title: TileDB Reader
     # - id: napari-tiledb-bioimg.write_multiple
     #   python_name: napari_tiledb_bioimg._writer:write_multiple
     #   title: Save multi-layer data with TileDB BioImaging Napari Plugin
@@ -13,8 +13,8 @@ contributions:
     #   title: Save image data with TileDB BioImaging Napari Plugin
   readers:
     - command: napari-tiledb-bioimg.get_reader
-      accepts_directories: false
-      filename_patterns: ['*.npy']
+      accepts_directories: true
+      filename_patterns: []
   # writers:
   #   - command: napari-tiledb-bioimg.write_multiple
   #     layer_types: ['image*']
