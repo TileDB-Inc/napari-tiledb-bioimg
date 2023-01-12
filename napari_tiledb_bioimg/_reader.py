@@ -21,8 +21,7 @@ def napari_get_reader(path):
         return None
 
     def reader_function(_):
-        with slide:
-            level_data = list(map(slide.read_level, range(slide.level_count)))
+        level_data = list(map(slide.read_level_dask, range(slide.level_count)))
         name = os.path.basename(os.path.abspath(path))
         return [(level_data, {"name": name})]
 
