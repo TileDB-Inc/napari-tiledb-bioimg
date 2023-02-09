@@ -15,7 +15,7 @@ def napari_get_reader(path):
         return None
 
     try:
-        slide = TileDBOpenSlide.from_group_uri(path)
+        slide = TileDBOpenSlide(path)
     except tiledb.TileDBError as ex:
         warnings.warn(f"Failed to open {path}: {ex}")
         return None
