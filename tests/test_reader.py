@@ -36,7 +36,7 @@ def test_get_reader_succeed():
     """Valid TileDB group dir"""
     original_data = []
     for level_dir in sorted(TEST_DIR.glob("l_*")):
-        with tiledb.open(str(level_dir)) as a:
+        with tiledb.open(str(level_dir), attr="intensity") as a:
             original_data.append(a[:])
 
     reader = napari_get_reader(str(TEST_DIR))
