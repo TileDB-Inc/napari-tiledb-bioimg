@@ -6,9 +6,13 @@ from tiledb.bioimg.openslide import TileDBOpenSlide
 
 
 def napari_get_reader(path):
-    
+    if not isinstance(path, str):
+        warnings.warn(f"Not a single path: {path}")
+        return None
+
     if tiledb.object_type(path) != 'group':
         warnings.warn(f"Not a tiledb group: {path}")
+        return None
     
     try:
         slide = TileDBOpenSlide(path)

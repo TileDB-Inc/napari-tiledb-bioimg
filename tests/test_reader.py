@@ -16,13 +16,13 @@ def test_get_reader_not_dir_fail(tmp_path):
     f.write_text("")
     assert f.is_file()
 
-    with pytest.warns(UserWarning, match="Not a directory"):
+    with pytest.warns(UserWarning, match="Not a tiledb group"):
         assert napari_get_reader(str(f)) is None
 
 
 def test_get_reader_invalid_dir_fail(tmp_path):
     """Not receiving a proper TileDB group directory"""
-    with pytest.warns(UserWarning, match="Failed to open"):
+    with pytest.warns(UserWarning, match="Not a tiledb group"):
         assert napari_get_reader(str(tmp_path)) is None
 
 
