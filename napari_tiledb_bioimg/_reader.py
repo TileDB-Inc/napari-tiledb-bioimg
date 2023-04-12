@@ -10,9 +10,10 @@ def napari_get_reader(path):
         warnings.warn(f"Not a single path: {path}")
         return None
 
-    if not os.path.isdir(path):
-        warnings.warn(f"Not a directory: {path}")
-        return None
+    if not path.startswith('s3://'):
+        if not os.path.isdir(path):
+            warnings.warn(f"Not a directory: {path}")
+            return None
 
     try:
         slide = TileDBOpenSlide(path)
