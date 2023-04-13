@@ -108,14 +108,6 @@ class NapariMultiScaleDataReader(NapariDataReader):
         return {}
 
 
-class NapariSingleScaleConverter(ImageConverter):
-    _ImageReaderType = NapariSingleScaleDataReader
-
-
-class NapariMultiScaleConverter(ImageConverter):
-    _ImageReaderType = NapariMultiScaleDataReader
-
-
 def napari_write_image_lossless(path, data, attributes):
     return _napari_write_image(path, data, lossless=True)
 
@@ -128,8 +120,8 @@ def _napari_write_image(path, data, lossless):
     kwargs = dict(compressor=tiledb.WebpFilter(lossless=lossless))
     if isinstance(data, MultiScaleData):
         kwargs.update(chunked=True, max_workers=os.cpu_count())
-        converter = NapariMultiScaleConverter
+        reader = NapariMultiScaleDataReader(data)
     else:
-        converter = NapariSingleScaleConverter
-    converter.to_tiledb(data, path, **kwargs)
+        reader = NapariSingleScaleDataReader(data)
+    ImageConverter.to_tiledb(reader, path, **kwargs)
     return [path]
