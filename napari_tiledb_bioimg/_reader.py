@@ -10,17 +10,10 @@ def napari_get_reader(path):
         warnings.warn(f"Not a single path: {path}")
         return None
 
-<<<<<<< HEAD
     if tiledb.object_type(path) != "group":
         warnings.warn(f"Not a tiledb group: {path}")
         return None
 
-=======
-    if tiledb.object_type(path) != 'group':
-        warnings.warn(f"Not a tiledb group: {path}")
-        return None
-    
->>>>>>> 5f51b5b (Fix windows test fails)
     try:
         slide = TileDBOpenSlide(path)
     except tiledb.TileDBError as ex:
