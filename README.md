@@ -27,8 +27,9 @@ You can install `napari-tiledb-bioimg` via [pip]:
 
     pip install napari-tiledb-bioimg
 
+### Installation from git:
 
-
+pip install git+https://github.com/TileDB-Inc/napari-tiledb-bioimg.git
 
 ## Contributing
 
