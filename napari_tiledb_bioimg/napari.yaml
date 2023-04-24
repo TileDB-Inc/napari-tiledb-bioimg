@@ -17,7 +17,7 @@ contributions:
   readers:
     - command: napari-tiledb-bioimg.get_reader
       accepts_directories: true
-      filename_patterns: ['tiledb://*', 's3://*', '*.tdb', '*.tiledb']
+      filename_patterns: ['tiledb://*', '*.tdb', '*.tiledb']
   writers:
     - command: napari-tiledb-bioimg.write_image_lossless
       layer_types: ['image']
