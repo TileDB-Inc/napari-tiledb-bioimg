@@ -10,8 +10,8 @@ def napari_get_reader(path):
         warnings.warn(f"Not a single path: {path}")
         return None
 
-    if not os.path.isdir(path):
-        warnings.warn(f"Not a directory: {path}")
+    if tiledb.object_type(path) != "group":
+        warnings.warn(f"Not a tiledb group: {path}")
         return None
 
     try:
