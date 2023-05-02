@@ -1,7 +1,11 @@
 import os
 import warnings
 from tiledb.bioimg.openslide import TileDBOpenSlide
-
+import tiledb
+try:
+    import tiledb.cloud
+except ImportError:
+  pass
 
 def napari_get_reader(path):
 
@@ -15,14 +19,12 @@ def napari_get_reader(path):
         # the current spec of napari_get_reader does not allow parameter passing
         # Read through tiledb-cloud
         try:
-            import tiledb.cloud
-            config  = tiledb.cloud.Config()
-        except:
-            raise ImportError("TileDB URIs require installation alongside tiledb-cloud")
+            config = tiledb.cloud.Config()
+        except ImportError as exc:
+            raise ImportError("TileDB URIs require installation alongside tiledb-cloud") from exc
         
     # Scope with ctx
     with tiledb.scope_ctx(ctx_or_config=config):
-
         if tiledb.object_type(path) != "group":
             warnings.warn(f"Not a tiledb group: {path}")
             return None
@@ -30,7 +32,7 @@ def napari_get_reader(path):
         try:
             slide = TileDBOpenSlide(path)
         except tiledb.TileDBError as ex:
-            warnings.warn(f"Failed to open {path}: {ex}")
+            warnings.warn(f"napari-tiledb plugin failed to open {path}: {ex}")
             return None
 
         def reader_function(_):

@@ -22,3 +22,4 @@ contributions:
     - command: napari-tiledb-bioimg.write_image_lossy
       layer_types: ['image']
       display_name:  lossy
+definitions: 
