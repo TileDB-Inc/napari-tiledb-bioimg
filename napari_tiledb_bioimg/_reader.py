@@ -22,7 +22,7 @@ def napari_get_reader(path):
             config = tiledb.cloud.Config()
         except ImportError as exc:
             raise ImportError("TileDB URIs require installation alongside tiledb-cloud") from exc
-        
+
     # Scope with ctx
     with tiledb.scope_ctx(ctx_or_config=config):
         if tiledb.object_type(path) != "group":
