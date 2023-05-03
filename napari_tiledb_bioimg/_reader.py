@@ -2,10 +2,6 @@ import os
 import warnings
 from tiledb.bioimg.openslide import TileDBOpenSlide
 import tiledb
-try:
-    import tiledb.cloud
-except ImportError:
-  pass
 
 def napari_get_reader(path):
 
@@ -19,9 +15,10 @@ def napari_get_reader(path):
         # the current spec of napari_get_reader does not allow parameter passing
         # Read through tiledb-cloud
         try:
-            config = tiledb.cloud.Config()
+          import tiledb.cloud
+          config = tiledb.cloud.Config()
         except ImportError as exc:
-            raise ImportError("TileDB URIs require installation alongside tiledb-cloud") from exc
+            raise ImportError("TileDB URIs require installation of tiledb-cloud") from exc
 
     # Scope with ctx
     with tiledb.scope_ctx(ctx_or_config=config):
