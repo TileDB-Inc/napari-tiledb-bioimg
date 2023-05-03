@@ -5,16 +5,19 @@ contributions:
     - id: napari-tiledb-bioimg.get_reader
       python_name: napari_tiledb_bioimg._reader:napari_get_reader
       title: TileDB Reader
+      enablement: true
     - id: napari-tiledb-bioimg.write_image_lossless
       python_name: napari_tiledb_bioimg._writer:napari_write_image_lossless
       title: Save image data with TileDB BioImaging Napari Plugin (lossless)
+      enablement: true
     - id: napari-tiledb-bioimg.write_image_lossy
       python_name: napari_tiledb_bioimg._writer:napari_write_image_lossy
       title: Save image data with TileDB BioImaging Napari Plugin (lossy)
+      enablement: true
   readers:
     - command: napari-tiledb-bioimg.get_reader
       accepts_directories: true
-      filename_patterns: ['*.tdb', '*.tiledb']
+      filename_patterns: ['tiledb://*', 's3://*', '*.tdb', '*.tiledb']
   writers:
     - command: napari-tiledb-bioimg.write_image_lossless
       layer_types: ['image']
