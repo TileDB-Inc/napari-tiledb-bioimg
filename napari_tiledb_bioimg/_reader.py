@@ -1,9 +1,9 @@
 import os
 import warnings
-from tiledb.bioimg.openslide import TileDBOpenSlide
-import tiledb
 
 def napari_get_reader(path):
+    import tiledb
+    from tiledb.bioimg.openslide import TileDBOpenSlide
 
     if not isinstance(path, str):
         warnings.warn(f"Not a single path: {path}")
