@@ -27,4 +27,4 @@ contributions:
       display_name:  lossy
   widgets:
     - command: napari-tiledb-bioimg.make_qwidget
-      display_name: TileDBWidget
+      display_name: TileDB
