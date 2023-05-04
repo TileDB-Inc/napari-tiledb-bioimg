@@ -5,11 +5,9 @@ except ImportError:
 
 from ._reader import napari_get_reader
 from ._writer import napari_write_image_lossless, napari_write_image_lossy
-from ._widget import filespicker
 
 __all__ = (
     "napari_get_reader",
     "napari_write_image_lossy",
     "napari_write_image_lossless",
-    "filespicker"
 )
