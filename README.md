@@ -4,7 +4,6 @@
 [![PyPI](https://img.shields.io/pypi/v/napari-tiledb-bioimg.svg?color=green)](https://pypi.org/project/napari-tiledb-bioimg)
 [![Python Version](https://img.shields.io/pypi/pyversions/napari-tiledb-bioimg.svg?color=green)](https://python.org)
 [![tests](https://github.com/TileDB-Inc/napari-tiledb-bioimg/workflows/tests/badge.svg)](https://github.com/TileDB-Inc/napari-tiledb-bioimg/actions)
-[![codecov](https://codecov.io/gh/TileDB-Inc/napari-tiledb-bioimg/branch/main/graph/badge.svg)](https://codecov.io/gh/TileDB-Inc/napari-tiledb-bioimg)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-tiledb-bioimg)](https://napari-hub.org/plugins/napari-tiledb-bioimg)
 
 This plugin supports reading and writing TileDB-BioImaging multi-resolution arrays within Napari.
