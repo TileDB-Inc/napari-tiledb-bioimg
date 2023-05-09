@@ -46,7 +46,8 @@ def test_get_reader_succeed():
     layer_data_list = reader(str(TEST_DIR))
     assert isinstance(layer_data_list, list) and len(layer_data_list) == 1
     layer_data_tuple = layer_data_list[0]
-    assert isinstance(layer_data_tuple, tuple) and len(layer_data_tuple) == 2
+    # After adding the metadata the length should be 3
+    assert isinstance(layer_data_tuple, tuple) and len(layer_data_tuple) == 3
 
     # make sure it's the same as it started
     layers_data = layer_data_tuple[0]

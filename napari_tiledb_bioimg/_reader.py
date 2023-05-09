@@ -5,7 +5,7 @@ import json
 from typing import Sequence, Mapping, Any
 
 
-def _get_meta(name:str, level_metadata: Sequence[Any]) -> Mapping[str, Any]:
+def _get_meta(name: str, level_metadata: Sequence[Any]) -> Mapping[str, Any]:
     meta: Mapping[str, Any] = {"name": name, "metadata": dict(json.loads(level_metadata[0]['json_write_kwargs']))}
     return meta
 
