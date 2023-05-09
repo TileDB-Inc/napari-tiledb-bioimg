@@ -1,5 +1,14 @@
 import os
 import warnings
+import json
+
+from typing import Sequence, Mapping, Any
+
+
+def _get_meta(name:str, level_metadata: Sequence[Any]) -> Mapping[str, Any]:
+    meta: Mapping[str, Any] = {"name": name, "metadata": dict(json.loads(level_metadata[0]['json_write_kwargs']))}
+    return meta
+
 
 def napari_get_reader(path):
     import tiledb
@@ -34,7 +43,9 @@ def napari_get_reader(path):
 
         def reader_function(_):
             level_data = list(map(slide.read_level_dask, range(slide.level_count)))
+            level_metadata = list(map(slide.level_properties, range(slide.level_count)))
             name = os.path.basename(os.path.abspath(path))
-            return [(level_data, {"name": name})]
+            meta = _get_meta(name, level_metadata)
+            return [(level_data, meta, "image")]
 
         return reader_function
