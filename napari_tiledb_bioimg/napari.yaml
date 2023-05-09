@@ -14,9 +14,6 @@ contributions:
     - id: napari-tiledb-bioimg.make_qwidget
       python_name: napari_tiledb_bioimg._widget:TileDBWidget
       title: Make TileDBWidget
-#    - id: napari-tiledb-bioimg.sample
-#      title: Provide sample data
-#      python_name: napari_tiledb_bioimg._sample:_provide_sample_data
   readers:
     - command: napari-tiledb-bioimg.get_reader
       accepts_directories: true
@@ -28,10 +25,12 @@ contributions:
     - command: napari-tiledb-bioimg.write_image_lossy
       layer_types: ['image']
       display_name:  lossy
-  sample_data:
-    - display_name: TileDB CMU-1-Small-Region-RGB
-      key: TileDB CMU-1-Small-Region
-      uri: ./samples/CMU-1-Small-Region-rgb.ome.tiff.tdb
+  # https://github.com/napari/napari/issues/5102
+#  sample_data:
+#    - display_name: TileDB CMU-1-Small-Region-RGB
+#      key: TileDB CMU-1-Small-Region
+#      uri: napari_tiledb_bioimg/samples/CMU-1-Small-Region-rgb.ome.tiff.tdb
+#      allow_directories: true
 #      reader_plugin: napari-tiledb-bioimg
   widgets:
     - command: napari-tiledb-bioimg.make_qwidget
