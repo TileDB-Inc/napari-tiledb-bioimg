@@ -1,0 +1,11 @@
+name: napari
+channels:
+  - conda-forge
+dependencies:
+  - tiledb-py
+  - openslide-python
+  - pip
+  - napari
+  - pip:
+    - tiledb-bioimg
+    - tiledb-cloud
