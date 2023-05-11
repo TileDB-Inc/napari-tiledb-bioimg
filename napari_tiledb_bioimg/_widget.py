@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING
 import os
 from qtpy.QtWidgets import QWidget
 from qtpy import QtWidgets
+import warnings
 
 if TYPE_CHECKING:
     import napari
