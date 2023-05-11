@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING
 import os
 from qtpy.QtWidgets import QWidget
 from qtpy import QtWidgets
+import warnings
 
 if TYPE_CHECKING:
     import napari
@@ -43,10 +44,17 @@ class TileDBWidget(QWidget):
         tdb_path = self.folderEdit.text()
         if tdb_path:
             self.viewer.open(tdb_path, plugin='napari-tiledb-bioimg')
-            self._set_scale_bar()
-
+            try:
+                self._set_scale_bar()
+            except KeyError:
+                warnings.warn(f"Image metadata absent - Scale bar can not be initiated")
+   
     def _sample_tdb(self):
         self.viewer.open(os.path.join(self.path, 'samples/CMU-1-Small-Region-rgb.ome.tiff.tdb'),
                          plugin='napari-tiledb-bioimg'
                          )
-        self._set_scale_bar()
+        try:
+            self._set_scale_bar()
+        except KeyError:
+            warnings.warn(f"Image metadata absent - Scale bar can not be initiated")
+
