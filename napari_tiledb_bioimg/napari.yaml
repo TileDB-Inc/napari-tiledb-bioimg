@@ -25,6 +25,13 @@ contributions:
     - command: napari-tiledb-bioimg.write_image_lossy
       layer_types: ['image']
       display_name:  lossy
+  # https://github.com/napari/napari/issues/5102
+#  sample_data:
+#    - display_name: TileDB CMU-1-Small-Region-RGB
+#      key: TileDB CMU-1-Small-Region
+#      uri: napari_tiledb_bioimg/samples/CMU-1-Small-Region-rgb.ome.tiff.tdb
+#      allow_directories: true
+#      reader_plugin: napari-tiledb-bioimg
   widgets:
     - command: napari-tiledb-bioimg.make_qwidget
       display_name: TileDB
