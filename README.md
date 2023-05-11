@@ -14,9 +14,7 @@ This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookie
 
 ## Demo
 
-![screencast](https://github.com/TileDB-Inc/napari-tiledb-bioimg/releases/download/0.1-rc0/napari-tiledb-bioimg-demo.mp4)
-
-<video src='https://github.com/TileDB-Inc/napari-tiledb-bioimg/releases/download/0.1-rc0/napari-tiledb-bioimg-demo.mp4'></video>
+<video src='docs/napari-tiledb-bioimg-demo.480p.mp4'></video>
 
 ## Installation
 
