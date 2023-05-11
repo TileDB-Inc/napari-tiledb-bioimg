@@ -13,7 +13,7 @@ This plugin supports reading and writing TileDB-BioImaging multi-resolution arra
 This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
 ## Demo
 
-![screencast](https://github.com/TileDB-Inc/napari-tiledb-bioimg/assets/327706/f8e7be4a-4158-4417-9f4b-cb511a42dcfd)
+![screencast](https://github.com/TileDB-Inc/napari-tiledb-bioimg/assets/327706/57feab2c-4fdf-4430-8598-543746b84c4d)
 
 ## Installation
 
