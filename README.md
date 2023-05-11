@@ -14,6 +14,10 @@ This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookie
 ## Demo
 ![screencast](https://github.com/TileDB-Inc/napari-tiledb-bioimg/releases/download/0.1-rc0/napari-tiledb-bioimg-demo.mp4)
 
+<video src="https://github.com/TileDB-Inc/napari-tiledb-bioimg/releases/download/0.1-rc0/napari-tiledb-bioimg-demo.mp4" placeholder="" autoplay loop controls muted title="test-title">
+  Sorry, your browser doesn't support HTML 5 video.
+ </video>
+
 <!--
 Don't miss the full getting started guide to set up your new package:
 https://github.com/napari/cookiecutter-napari-plugin#getting-started
