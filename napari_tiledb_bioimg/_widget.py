@@ -28,9 +28,9 @@ class TileDBWidget(QWidget):
         layout.insertRow(1, self.openbtn)
 
         # Sample button
-        self.sample_btn = QtWidgets.QPushButton('Sample')
+        self.sample_btn = QtWidgets.QPushButton('Load Sample Dataset')
         self.sample_btn.clicked.connect(self._sample_tdb)
-        layout.insertRow(1, self.sample_btn)
+        layout.insertRow(2, self.sample_btn)
 
     def _open_tdb(self):
         tdb_path = self.folderEdit.text()
