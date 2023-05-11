@@ -6,7 +6,12 @@ from typing import Sequence, Mapping, Any
 
 
 def _get_meta(name: str, level_metadata: Sequence[Any]) -> Mapping[str, Any]:
-    meta: Mapping[str, Any] = {"name": name, "metadata": dict(json.loads(level_metadata[0]['json_write_kwargs']))}
+    try:
+        # TODO: clean this up
+        meta: Mapping[str, Any] = {"name": name, "metadata": dict(json.loads(level_metadata[0]['json_write_kwargs']))}
+    except KeyError as exc:
+        warnings.warn(f"[TileDB:Napari:BioImg] napari-tiledb plugin did not find expected metadata: {exc}")
+        return dict()
     return meta
 
 
@@ -27,7 +32,7 @@ def napari_get_reader(path):
           import tiledb.cloud
           config = tiledb.cloud.Config()
         except ImportError as exc:
-            raise ImportError("TileDB URIs require installation of tiledb-cloud") from exc
+            raise ImportError("[TileDB:Napari:BioImg] TileDB URIs require installation of tiledb-cloud") from exc
 
     # Scope with ctx
     with tiledb.scope_ctx(ctx_or_config=config):
@@ -38,7 +43,7 @@ def napari_get_reader(path):
         try:
             slide = TileDBOpenSlide(path)
         except tiledb.TileDBError as ex:
-            warnings.warn(f"napari-tiledb plugin failed to open {path}: {ex}")
+            warnings.warn(f"[TileDB:Napari:BioImg] napari-tiledb plugin failed to open {path}: {ex}")
             return None
 
         def reader_function(_):
