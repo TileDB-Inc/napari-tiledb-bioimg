@@ -12,7 +12,7 @@ This plugin supports reading and writing TileDB-BioImaging multi-resolution arra
 
 ## Demo
 
-https://github.com/TileDB-Inc/napari-tiledb-bioimg/assets/327706/b408d634-6ad0-4160-8571-18cf8e37b4cc
+https://github.com/TileDB-Inc/napari-tiledb-bioimg/assets/327706/155a9b90-5006-46e0-9242-ef4aa6f2b4bb
 
 ## Installation
 
