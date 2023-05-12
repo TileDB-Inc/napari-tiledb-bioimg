@@ -39,6 +39,6 @@ class TileDBWidget(QWidget):
             self.viewer.open(tdb_path, plugin='napari-tiledb-bioimg')
 
     def _sample_tdb(self):
-        self.viewer.open(os.path.join(self.path, 'samples/CMU-1-Small-Region-rgb.ome.tiff.tdb'),
+        self.viewer.open(os.path.join(self.path, 'samples/CMU-1-Small-Region.tdb'),
                          plugin='napari-tiledb-bioimg'
                          )
