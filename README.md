@@ -6,7 +6,7 @@
 [![tests](https://github.com/TileDB-Inc/napari-tiledb-bioimg/workflows/tests/badge.svg)](https://github.com/TileDB-Inc/napari-tiledb-bioimg/actions)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-tiledb-bioimg)](https://napari-hub.org/plugins/napari-tiledb-bioimg)
 
-This plugin supports reading and writing TileDB-BioImaging multi-resolution arrays within Napari.
+This plugin supports reading and writing TileDB-BioImaging multi-resolution arrays within [Napari](https://www.napari.org).
 
 ----------------------------------
 
@@ -24,7 +24,7 @@ https://github.com/TileDB-Inc/napari-tiledb-bioimg/assets/327706/155a9b90-5006-4
 
 After [ingesting data using `tiledb-bioimg`](https://github.com/TileDB-Inc/TileDB-BioImaging#examples), then:
 
-- Local images can be loaded using Napari's `File -> Open Folder`, and selecting the TileDB array folder. Choose the `napari-tiledb-bioimg` plugin, if prompted.
+- Local images may be loaded using Napari's `File -> Open Folder`, and selecting the TileDB array folder. Choose the `napari-tiledb-bioimg` plugin, if prompted.
 
 - Remote arrays (S3, TileDB Cloud) may be loaded using either the `napari` CLI command:
 
@@ -32,7 +32,7 @@ After [ingesting data using `tiledb-bioimg`](https://github.com/TileDB-Inc/TileD
 napari --plugin napari-tiledb-bioimg s3://<bucket>/<path/to/tiledb_array>
 ```
 
-- ... or the Napari viewer load command within the Python prompt:
+- or the Napari viewer `load` command within a Python prompt:
 
 ```
 # Within a Napari-enabled Python/IPython prompt, run:
@@ -55,7 +55,7 @@ pip install git+https://github.com/TileDB-Inc/napari-tiledb-bioimg.git
 
 ## License
 
-Distributed under the terms of the [MIT] license,
+Distributed under the terms of the [MIT](https://github.com/TileDB-Inc/napari-tiledb-bioimg/blob/main/LICENSE) license,
 "napari-tiledb-bioimg" is free and open source software.
 
 ## Issues
