@@ -6,7 +6,7 @@
 [![tests](https://github.com/TileDB-Inc/napari-tiledb-bioimg/workflows/tests/badge.svg)](https://github.com/TileDB-Inc/napari-tiledb-bioimg/actions)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-tiledb-bioimg)](https://napari-hub.org/plugins/napari-tiledb-bioimg)
 
-This plugin supports reading and writing TileDB-BioImaging multi-resolution arrays within [Napari](https://www.napari.org).
+This plugin supports reading [TileDB-BioImaging](https://github.com/TileDB-Inc/TileDB-BioImaging) multi-resolution arrays within [Napari](https://www.napari.org).
 
 ----------------------------------
 
