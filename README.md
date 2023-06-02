@@ -16,7 +16,7 @@ https://github.com/TileDB-Inc/napari-tiledb-bioimg/assets/327706/155a9b90-5006-4
 
 ## Installation
 
-[pending PyPI release!] You can install `napari-tiledb-bioimg` via [pip]:
+You can install `napari-tiledb-bioimg` via [pip]:
 
     pip install napari-tiledb-bioimg
 
