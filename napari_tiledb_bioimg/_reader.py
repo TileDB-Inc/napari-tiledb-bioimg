@@ -10,7 +10,7 @@ def _get_meta(name: str, level_metadata: Sequence[Any]) -> Mapping[str, Any]:
         # TODO: clean this up
         meta: Mapping[str, Any] = {"name": name, "metadata": dict(json.loads(level_metadata[0]['json_write_kwargs']))}
     except KeyError as exc:
-        warnings.warn(f"[TileDB:Napari:BioImg] napari-tiledb plugin did not find expected metadata: {exc}")
+        warnings.warn(f"[TileDB:Napari:BioImg] - Error: napari-tiledb plugin did not find expected metadata: {exc}")
         return dict()
     return meta
 
@@ -21,7 +21,7 @@ def napari_get_reader(path):
 
     if not isinstance(path, str):
         warnings.warn(f"Not a single path: {path}")
-        return None
+        raise ValueError('[TileDB::Napari] - Error: The single path given should be of string type')
 
     config = None
     if path.startswith('tiledb://'):
@@ -32,18 +32,16 @@ def napari_get_reader(path):
           import tiledb.cloud
           config = tiledb.cloud.Config()
         except ImportError as exc:
-            raise ImportError("[TileDB:Napari:BioImg] TileDB URIs require installation of tiledb-cloud") from exc
+            raise ImportError("[TileDB:Napari:BioImg] - Error: TileDB URIs require installation of tiledb-cloud") from exc
 
     # Scope with ctx
     with tiledb.scope_ctx(ctx_or_config=config):
         if tiledb.object_type(path) != "group":
-            warnings.warn(f"Not a tiledb group: {path}")
-            return None
-
+            raise ValueError('[TileDB::Napari] - Error: The path given should correspond to a tiledb group')
         try:
             slide = TileDBOpenSlide(path)
         except tiledb.TileDBError as ex:
-            warnings.warn(f"[TileDB:Napari:BioImg] napari-tiledb plugin failed to open {path}: {ex}")
+            warnings.warn(f"[TileDB::Napari] - Error: TileDBOpenSlide failed to open {path}: {ex}")
             return None
 
         def reader_function(_):

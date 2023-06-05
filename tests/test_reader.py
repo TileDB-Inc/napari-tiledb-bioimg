@@ -16,20 +16,23 @@ def test_get_reader_not_dir_fail(tmp_path):
     f.write_text("")
     assert f.is_file()
 
-    with pytest.warns(UserWarning, match="Not a tiledb group"):
-        assert napari_get_reader(str(f)) is None
+    with pytest.raises(ValueError) as exc:
+        napari_get_reader(str(f))
+        assert "The path given should correspond to a tiledb group" in str(exc.value)
 
 
 def test_get_reader_invalid_dir_fail(tmp_path):
     """Not receiving a proper TileDB group directory"""
-    with pytest.warns(UserWarning, match="Not a tiledb group"):
-        assert napari_get_reader(str(tmp_path)) is None
+    with pytest.raises(ValueError) as exc:
+        napari_get_reader(str(tmp_path))
+        assert "The path given should correspond to a tiledb group" in str(exc.value)
 
 
 def test_get_reader_list_fail():
     """Not receiving a single directory"""
-    with pytest.warns(UserWarning, match="Not a single path"):
-        assert napari_get_reader([str(TEST_DIR)]) is None
+    with pytest.raises(ValueError) as exc:
+        napari_get_reader(str([str(TEST_DIR)]))
+        assert "The single path given should be of string type" in str(exc.value)
 
 
 def test_get_reader_succeed():
