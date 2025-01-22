@@ -5,7 +5,7 @@ import numpy as np
 import tiledb
 from napari.layers.image.image import MultiScaleData
 from tiledb.bioimg.converters.base import Axes, ImageConverter, ImageReader
-from tiledb.cc import WebpInputFormat
+from tiledb.filter import WebpFilter
 
 
 class NapariDataReader(ImageReader):
@@ -47,12 +47,12 @@ class NapariDataReader(ImageReader):
         return ()
 
     @property
-    def webp_format(self) -> WebpInputFormat:
+    def webp_format(self) -> WebpFilter.WebpInputFormat:
         if self._rgb:
-            return WebpInputFormat.WEBP_RGB
+            return WebpFilter.WebpInputFormat.WEBP_RGB
         if self._rgba:
-            return WebpInputFormat.WEBP_RGBA
-        return WebpInputFormat.WEBP_NONE
+            return WebpFilter.WebpInputFormat.WEBP_RGBA
+        return WebpFilter.WebpInputFormat.WEBP_NONE
 
     @property
     def group_metadata(self) -> Dict[str, Any]:
