@@ -44,26 +44,26 @@ def napari_get_reader(path):
     if path.startswith('s3://'):
         valid=True
 
-    if valid:
-        # Scope with ctx
-        with tiledb.scope_ctx(ctx_or_config=config):
-            if tiledb.object_type(path) != "group":
-                warnings.warn(f"Not a tiledb group: {path}")
-                return None
-
-            try:
-                slide = TileDBOpenSlide(path)
-            except tiledb.TileDBError as ex:
-                warnings.warn(f"[TileDB:Napari:BioImg] napari-tiledb plugin failed to open {path}: {ex}")
-                return None
-
-            def reader_function(_):
-                level_data = list(map(slide.read_level_dask, range(slide.level_count)))
-                level_metadata = list(map(slide.level_properties, range(slide.level_count)))
-                name = os.path.basename(os.path.abspath(path))
-                meta = _get_meta(name, level_metadata)
-                return [(level_data, meta, "image")]
-
-            return reader_function
-    else:
+    if not valid:
         raise ValueError('[TileDB::Napari] - Error: The path given is not valid or does not exist')
+
+    # Scope with ctx
+    with tiledb.scope_ctx(ctx_or_config=config):
+        if tiledb.object_type(path) != "group":
+            warnings.warn(f"Not a tiledb group: {path}")
+            return None
+
+        try:
+            slide = TileDBOpenSlide(path)
+        except tiledb.TileDBError as ex:
+            warnings.warn(f"[TileDB:Napari:BioImg] napari-tiledb plugin failed to open {path}: {ex}")
+            return None
+
+        def reader_function(_):
+            level_data = list(map(slide.read_level_dask, range(slide.level_count)))
+            level_metadata = list(map(slide.level_properties, range(slide.level_count)))
+            name = os.path.basename(os.path.abspath(path))
+            meta = _get_meta(name, level_metadata)
+            return [(level_data, meta, "image")]
+
+        return reader_function
