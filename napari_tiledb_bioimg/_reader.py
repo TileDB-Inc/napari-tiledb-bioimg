@@ -23,6 +23,10 @@ def napari_get_reader(path):
         warnings.warn(f"Not a single path: {path}")
         return None
 
+    if not os.path.exists(path):
+        warnings.warn(f"Not a valid path {path}")
+        raise ValueError('[TileDB::Napari] - Error: The path given is not valid or does not exist')
+    
     config = None
     if path.startswith('tiledb://'):
         # This tiledb paths should be resolved with cloud creds found under $HOME./tiledb/cloud.json

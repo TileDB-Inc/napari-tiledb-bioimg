@@ -1,15 +1,21 @@
-import os
-from typing import Any, Dict, Optional, Sequence, Tuple
+from __future__ import annotations
 
+import os
+from typing import Any, Dict, Optional, Sequence, Tuple, Iterator
+import logging
 import numpy as np
 import tiledb
 from napari.layers.image.image import MultiScaleData
-from tiledb.bioimg.converters.base import Axes, ImageConverter, ImageReader
-from tiledb.cc import WebpInputFormat
+from tiledb.bioimg.converters.base import Axes, ImageConverterMixin, ImageReader, ImageWriter
+from tiledb.bioimg.helpers import iter_color
+from tiledb.filter import WebpFilter 
 
 
-class NapariDataReader(ImageReader):
-    def __init__(self, data):
+class NapariDataReader:
+
+    def __init__(self, 
+                 data,
+                 logger:  Optional[logging.Logger] = None):
         self._data = data
 
     # adapted from https://github.com/napari/napari/blob/ee94c35c04674ddc8e89ed63ac7674c27fa8fc6c/napari/layers/image/_image_utils.py#L27-L30
@@ -47,21 +53,54 @@ class NapariDataReader(ImageReader):
         return ()
 
     @property
-    def webp_format(self) -> WebpInputFormat:
+    def webp_format(self) -> WebpFilter.WebpInputFormat:
         if self._rgb:
-            return WebpInputFormat.WEBP_RGB
+            return WebpFilter.WebpInputFormat.WEBP_RGB
         if self._rgba:
-            return WebpInputFormat.WEBP_RGBA
-        return WebpInputFormat.WEBP_NONE
+            return WebpFilter.WebpInputFormat.WEBP_RGBA
+        return WebpFilter.WebpInputFormat.WEBP_NONE
 
     @property
     def group_metadata(self) -> Dict[str, Any]:
         return {}
 
+    @property
+    def image_metadata(self) -> Dict[str, Any]:
+        metadata: Dict[str, Any] = {}
+        color_generator = iter_color(np.dtype(np.uint8), 3)
+        metadata["channels"] = [
+            {"id": f"{idx}", "name": f"{name}", "color": next(color_generator)}
+            for idx, name in enumerate(["red", "green", "blue"])
+        ]
+        return metadata
+    
+    @property
+    def original_metadata(self) -> Dict[str, Any]:
+        return {}
+    
+    def optimal_reader(
+        self, level: int, max_workers: int = 0
+    ) -> Optional[Iterator[Tuple[Tuple[slice, ...], NDArray[Any]]]]:
+        return None
+
 
 class NapariSingleScaleDataReader(NapariDataReader):
-    def __init__(self, data: np.ndarray):
+    def __init__(self, data: np.ndarray, logger:  Optional[logging.Logger] = None):
         super().__init__(data)
+    
+    def __enter__(self) -> NapariSingleScaleDataReader:
+        return self
+
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        pass
+
+    @property
+    def source_ctx(self) -> tiledb.Ctx:
+        pass
+
+    @property
+    def dest_ctx(self) -> tiledb.Ctx:
+        pass
 
     @property
     def level_count(self) -> int:
@@ -80,12 +119,45 @@ class NapariSingleScaleDataReader(NapariDataReader):
 
     def level_metadata(self, level: int) -> Dict[str, Any]:
         return {}
+    
+    @property
+    def image_metadata(self) -> Dict[str, Any]:
+        metadata: Dict[str, Any] = {}
+        color_generator = iter_color(np.dtype(np.uint8), 3)
+        metadata["channels"] = [
+            {"id": f"{idx}", "name": f"{name}", "color": next(color_generator)}
+            for idx, name in enumerate(["red", "green", "blue"])
+        ]
+        return metadata
+    
+    @property
+    def original_metadata(self) -> Dict[str, Any]:
+        return {}
+    
+    def optimal_reader(
+        self, level: int, max_workers: int = 0
+    ) -> Optional[Iterator[Tuple[Tuple[slice, ...], NDArray[Any]]]]:
+        return None
 
 
 class NapariMultiScaleDataReader(NapariDataReader):
-    def __init__(self, data: MultiScaleData):
+    def __init__(self, data: MultiScaleData, logger:  Optional[logging.Logger] = None):
         super().__init__(data)
 
+    def __enter__(self) -> NapariMultiScaleDataReader:
+        return self
+
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        pass
+
+    @property
+    def source_ctx(self) -> tiledb.Ctx:
+        pass
+
+    @property
+    def dest_ctx(self) -> tiledb.Ctx:
+        pass
+    
     @property
     def level_count(self) -> int:
         return len(self._data)
@@ -108,11 +180,11 @@ class NapariMultiScaleDataReader(NapariDataReader):
         return {}
 
 
-class NapariSingleScaleConverter(ImageConverter):
+class NapariSingleScaleConverter(ImageConverterMixin[NapariSingleScaleDataReader, Any]):
     _ImageReaderType = NapariSingleScaleDataReader
 
 
-class NapariMultiScaleConverter(ImageConverter):
+class NapariMultiScaleConverter(ImageConverterMixin[NapariMultiScaleDataReader, Any]):
     _ImageReaderType = NapariMultiScaleDataReader
 
 
@@ -131,5 +203,5 @@ def _napari_write_image(path, data, lossless):
         converter = NapariMultiScaleConverter
     else:
         converter = NapariSingleScaleConverter
-    converter.to_tiledb(data, path, **kwargs)
+    converter.to_tiledb(source=data, output_path=path, **kwargs)
     return [path]

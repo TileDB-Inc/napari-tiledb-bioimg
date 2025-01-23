@@ -6,7 +6,7 @@ import tiledb
 
 from napari_tiledb_bioimg import napari_get_reader
 
-TEST_DIR = pathlib.Path(__file__).parent / "rand_uint16.tdb"
+TEST_DIR = pathlib.Path(__file__).parent / "rand_data.tdb"
 
 
 def test_get_reader_not_dir_fail(tmp_path):
