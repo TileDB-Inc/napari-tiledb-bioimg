@@ -27,8 +27,6 @@ def napari_get_reader(path):
     valid = False
     if os.path.exists(path):
         valid=True
-    else: 
-        warnings.warn(f"Not a local valid path {path}")
     
     if path.startswith('tiledb://'):
         # This tiledb paths should be resolved with cloud creds found under $HOME./tiledb/cloud.json
