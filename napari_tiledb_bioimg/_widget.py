@@ -36,8 +36,10 @@ class TileDBWidget(QWidget):
     def _open_tdb(self):
         tdb_path = self.folderEdit.text()
         if tdb_path:
-            self.viewer.open(tdb_path, plugin='napari-tiledb-bioimg')
-
+            try:
+                self.viewer.open(tdb_path, plugin='napari-tiledb-bioimg')
+            except ValueError:
+                raise ValueError("[TileDB::Napari] - Error: TileDBOpenSlide failed to open")
     def _sample_tdb(self):
         self.viewer.open(os.path.join(self.path, 'samples/CMU-1-Small-Region.tdb'),
                          plugin='napari-tiledb-bioimg'

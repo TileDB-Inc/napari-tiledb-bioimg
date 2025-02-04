@@ -22,7 +22,7 @@ jobs:
     runs-on: ${{ matrix.platform }}
     strategy:
       matrix:
-        platform: [ubuntu-latest, windows-latest, macos-latest]
+        platform: [ubuntu-latest, windows-latest]
         python-version: ['3.8', '3.9', '3.10']
 
     steps:
@@ -42,6 +42,18 @@ jobs:
         run: |
           git clone --depth 1 https://github.com/pyvista/gl-ci-helpers.git
           powershell gl-ci-helpers/appveyor/install_opengl.ps1
+
+      - name: Install Windows OpenGL
+        if: runner.os == 'Windows'
+        run: |
+          choco install wget --no-progress
+          wget https://github.com/openslide/openslide-winbuild/releases/download/v20221217/openslide-win64-20221217.zip
+          7z x openslide-win64-20221217.zip -oD:\openslide\
+          cmd /c mklink /D C:\openslide-win64\ D:\openslide\openslide-win64-20221217\
+          cd C:\openslide-win64\
+          dir
+          set openslide_path=%cd%
+          echo %openslide_path%
 
       # note: if you need dependencies from conda, considering using
       # setup-miniconda: https://github.com/conda-incubator/setup-miniconda
