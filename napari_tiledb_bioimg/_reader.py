@@ -58,7 +58,7 @@ def napari_get_reader(path):
             return None
 
         def reader_function(_):
-            level_data = list(map(slide.read_level_dask, range(slide.level_count)))
+            level_data = list(map(slide.read_level_dask, range(slide.level_count), [True]* slide.level_count))
             level_metadata = list(map(slide.level_properties, range(slide.level_count)))
             name = os.path.basename(os.path.abspath(path))
             meta = _get_meta(name, level_metadata)
